@@ -60,7 +60,7 @@
         }
       });
       
-      var idToken = localStorage.getItem('id_token') || null;
+      var idToken = localStorage.getItem('accessToken') || null;
       var profile = JSON.parse(localStorage.getItem('profile')) || null;
 
       if (idToken && profile) {
@@ -81,8 +81,8 @@
       });
 
       lock.on('authenticated', (authResult) => {
-        localStorage.setItem('id_token', authResult.idToken);
-        lock.getProfile(authResult.idToken, (err, profile) => {
+        localStorage.setItem('accessToken', authResult.accessToken);
+        lock.getProfile(authResult.accessToken, (err, profile) => {
           localStorage.setItem('profile', JSON.stringify(profile));
           $('.profile-section').classList.remove('hidden');
           $('.avatar').src = profile.picture;
@@ -96,7 +96,7 @@
       
       $('.btn-logout').addEventListener('click', function() {
         localStorage.removeItem('profile');
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('accessToken');
         $('.profile-section').classList.add('hidden');
         $('.avatar').src = '';
         $('.name').textContent = null;
